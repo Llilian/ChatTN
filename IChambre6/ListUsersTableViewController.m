@@ -89,9 +89,7 @@
 
 - (IBAction)Synchroniser:(id)sender {
     
-    [[self BtnSync] setBackgroundColor:[UIColor redColor]];
-    [self.view setNeedsDisplay];
-    [[self BtnSync] setBackgroundColor:[UIColor greenColor]];
+    [[self tableView] reloadData];
     /*
     for (int i =0; i < [_myRoom2.UsersAccepted count]; i++ ){
         NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
