@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "Room.h"
 
-@interface ListUsersTableViewController : UITableViewController
+@interface ListUsersTableViewController : UITableViewController <MCNearbyServiceAdvertiserDelegate>
 
-- (IBAction)Synchroniser:(id)sender;
+- (IBAction)ResearchUsers:(id)sender;
+- (IBAction)Synchronize:(id)sender;
 
-@property Room *myRoom2;
-@property (strong, nonatomic) IBOutlet UITableView *BtnSync;
+@property Room *myRoom;
 
 
 @end

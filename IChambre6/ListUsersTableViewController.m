@@ -8,9 +8,12 @@
 
 #import "ListUsersTableViewController.h"
 #import "ChatViewController.h"
+#import "MultipeerConnectionManager.h"
 #import "Room.h"
 
 @interface ListUsersTableViewController ()
+
+@property MultipeerConnectionManager *mCManager;
 
 @end
 
@@ -18,11 +21,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _mCManager = [[MultipeerConnectionManager alloc] init];
+    
+    [_mCManager Initialization:_myRoom];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)ResearchUsers:(id)sender {
+    [_mCManager BrowserConnection:[self myRoom]];
+    
+    [self presentViewController: [_mCManager browserViewController]
+                       animated:YES completion:^{
+                           [[_mCManager browser] startBrowsingForPeers];
+                       }];
+
+}
+
+- (IBAction)Synchronize:(id)sender {
+    
+    [[self tableView] reloadData];
 }
 
 #pragma mark - Table view data source
@@ -32,13 +54,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_myRoom2.UsersAccepted count];
+    return [_myRoom.UsersAccepted count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"item" forIndexPath:indexPath];
     
-    [[cell textLabel] setText:[[[[self myRoom2] UsersAccepted] objectAtIndex:indexPath.row] displayName]];
+    [[cell textLabel] setText:[[[[self myRoom] UsersAccepted] objectAtIndex:indexPath.row] displayName]];
     
     return cell;
 }
@@ -87,14 +109,46 @@
 }
 
 
-- (IBAction)Synchroniser:(id)sender {
+#pragma mark - MCNearbyServiceAdvertiserDelegate
+
+-(void)advertiser:(MCNearbyServiceAdvertiser *)advertiser
+didReceiveInvitationFromPeer:(MCPeerID *)peerID
+      withContext:(NSData *)context
+invitationHandler:(void (^)(BOOL accept, MCSession *session))invitationHandler
+{
     
-    [[self tableView] reloadData];
-    /*
-    for (int i =0; i < [_myRoom2.UsersAccepted count]; i++ ){
-        NSIndexPath *index = [NSIndexPath indexPathForRow:0 inSection:0];
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:index];
-        [[cell textLabel] setText:[_myRoom2.UsersAccepted objectAtIndex:i]];
-    }*/
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Connexion entrante"
+//                                                                   message: [[peerID displayName] stringByAppendingString:@" veut discuter avec vous !"]
+//                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Connexion entrante"
+                                                                   message:@"Quelqu'un veut discuter avec vous !"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Accepté" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+                         {
+                             [_myRoom addUser:peerID andStatus:(bool *) true];
+                             invitationHandler(YES, [_mCManager mySession]);
+                         }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Rejeté" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
+                             {
+                                 [_myRoom addUser:peerID andStatus:(bool *) false];
+                                 invitationHandler(NO, nil);
+                             }];
+    
+    [alert addAction:cancel];
+    [alert addAction:ok];
+    
+    /*[self dismissViewControllerAnimated:YES completion:^{
+        nil;
+    }];*/
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
+    
 }
+
+
 @end

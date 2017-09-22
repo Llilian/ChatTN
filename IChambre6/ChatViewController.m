@@ -21,7 +21,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[self LblUser] setText:[self name]];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {

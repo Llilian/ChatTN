@@ -14,10 +14,10 @@
 - (instancetype)init
 {
     self = [super init];
-    if (self) {        
+    if (self) {
+        _UsersAccepted = [NSMutableArray array];
+        _UsersRejected = [NSMutableArray array];
     }
-    _UsersAccepted = [NSMutableArray array];
-    _UsersRejected = [NSMutableArray array];
     return self;
 }
 
