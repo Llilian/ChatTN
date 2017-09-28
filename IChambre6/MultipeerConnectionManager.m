@@ -7,8 +7,6 @@
 //
 
 #import "MultipeerConnectionManager.h"
-#import "ListUsersTableViewController.h"
-#import "Room.h"
 
 MCPeerID *myPeerID;
 BOOL advertiserIsStarted = NO;
@@ -25,7 +23,7 @@ static NSString * const service = @"ichambre";
     return self;
 }
 
--(void) Initialization: (Room *) myRoom
+-(MCNearbyServiceAdvertiser *) Initialization: (Room *) myRoom
 {
     myPeerID = [[MCPeerID alloc] initWithDisplayName: myRoom.UserIdRoom];
     
@@ -36,12 +34,8 @@ static NSString * const service = @"ichambre";
     
     advertiserIsStarted = YES;
     
-    ListUsersTableViewController *TableViewController = [[ListUsersTableViewController alloc] init];
-    
-    _advertiser.delegate = TableViewController;
-    
-    
-}
+    // La gestion de reception des demandes est géré dans ListUsersTableViewController
+    return [self advertiser]; }
 
 -(void) ChangeAdvertiserStatus
 {
@@ -60,22 +54,12 @@ static NSString * const service = @"ichambre";
 
 -(void) BrowserConnection: (Room *) myRoom
 {
-
-    
-    // Création du PeerID à la première connexion
-//    if (myPeerID == nil)
-//        myPeerID = [[MCPeerID alloc] initWithDisplayName: myRoom.UserIdRoom];
-    
     _mySession = [[MCSession alloc] initWithPeer:myPeerID securityIdentity:nil encryptionPreference:MCEncryptionNone];
 
     _browser = [[MCNearbyServiceBrowser alloc] initWithPeer:myPeerID serviceType:service];
-    //browser.delegate = self;
     
     _browserViewController = [[MCBrowserViewController alloc] initWithBrowser:_browser session:_mySession];
-    //browserViewController.delegate = self;
 
 }
-
-
 
 @end

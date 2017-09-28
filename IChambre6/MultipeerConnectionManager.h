@@ -16,7 +16,7 @@
 @property MCBrowserViewController *browserViewController;
 @property MCNearbyServiceBrowser *browser;
 
--(void) Initialization: (Room *) myRoom;
+-(MCNearbyServiceAdvertiser *) Initialization: (Room *) myRoom;
 
 -(void) ChangeAdvertiserStatus;
 

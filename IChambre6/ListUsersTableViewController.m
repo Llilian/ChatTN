@@ -24,7 +24,8 @@
     
     _mCManager = [[MultipeerConnectionManager alloc] init];
     
-    [_mCManager Initialization:_myRoom];
+    MCNearbyServiceAdvertiser *advertiser = [_mCManager Initialization:_myRoom];
+    [advertiser setDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -117,14 +118,13 @@ didReceiveInvitationFromPeer:(MCPeerID *)peerID
 invitationHandler:(void (^)(BOOL accept, MCSession *session))invitationHandler
 {
     
-//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Connexion entrante"
-//                                                                   message: [[peerID displayName] stringByAppendingString:@" veut discuter avec vous !"]
-//                                                            preferredStyle:UIAlertControllerStyleAlert];
-
-    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Connexion entrante"
-                                                                   message:@"Quelqu'un veut discuter avec vous !"
+                                                                   message: [[peerID displayName] stringByAppendingString:@" veut discuter avec vous !"]
                                                             preferredStyle:UIAlertControllerStyleAlert];
+    
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Connexion entrante"
+//                                                                   message:@"Quelqu'un veut discuter avec vous !"
+//                                                            preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Accepté" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
                          {
@@ -146,7 +146,6 @@ invitationHandler:(void (^)(BOOL accept, MCSession *session))invitationHandler
     }];*/
     
     [self presentViewController:alert animated:YES completion:nil];
-    
     
 }
 
