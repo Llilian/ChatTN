@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ChatViewController.h"
+#import "MultipeerConnectionManager.h"
 #import "Room.h"
 
-@interface ListUsersTableViewController : UITableViewController <MCNearbyServiceAdvertiserDelegate>
+@interface ListUsersTableViewController : UITableViewController <MCNearbyServiceAdvertiserDelegate,MCSessionDelegate>
 
 - (IBAction)ResearchUsers:(id)sender;
 - (IBAction)Synchronize:(id)sender;

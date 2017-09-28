@@ -39,6 +39,8 @@
 */
 
 - (IBAction)MsgSend:(id)sender {
-    
+    NSString *message = @"Bidle";
+    NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
+    [[self mCManager] SendMessage:data withPeer:_peerID];
 }
 @end

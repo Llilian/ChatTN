@@ -7,9 +7,6 @@
 //
 
 #import "ListUsersTableViewController.h"
-#import "ChatViewController.h"
-#import "MultipeerConnectionManager.h"
-#import "Room.h"
 
 @interface ListUsersTableViewController ()
 
@@ -107,6 +104,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ChatViewController *controller = [segue destinationViewController];
     [controller setName: [[sender textLabel] text]];
+    [controller setMCManager:[self mCManager]];
+    [controller setPeerID:[[_myRoom UsersAccepted] objectAtIndex:0]]; // Passage du peerID
 }
 
 
@@ -146,6 +145,15 @@ invitationHandler:(void (^)(BOOL accept, MCSession *session))invitationHandler
     }];*/
     
     [self presentViewController:alert animated:YES completion:nil];
+    
+}
+
+#pragma mark - MCSessionDelegate
+
+- (void)session:(MCSession *)session
+    didReceiveData:(NSData *)data
+    fromPeer:(MCPeerID *)peerID
+{
     
 }
 

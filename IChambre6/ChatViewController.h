@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MultipeerConnectionManager.h"
 
 @interface ChatViewController : UIViewController
 
@@ -17,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *BtnEnv;
 
 @property NSString *name;
+@property MultipeerConnectionManager *mCManager;
+@property MCPeerID *peerID;
 
 
 - (IBAction)MsgSend:(id)sender;

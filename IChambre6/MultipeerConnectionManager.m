@@ -59,7 +59,14 @@ static NSString * const service = @"ichambre";
     _browser = [[MCNearbyServiceBrowser alloc] initWithPeer:myPeerID serviceType:service];
     
     _browserViewController = [[MCBrowserViewController alloc] initWithBrowser:_browser session:_mySession];
+}
 
+-(void) SendMessage: (NSData *)data withPeer: (MCPeerID *)peerID
+{
+    NSError *error = nil;
+    [[self mySession] sendData:data toPeers:peerID withMode:MCSessionSendDataReliable error:&error];
+//    if (![[self mySession] sendData:data toPeers:peerID withMode:MCSessionSendDataReliable error:&error])
+//        return error;
 }
 
 @end

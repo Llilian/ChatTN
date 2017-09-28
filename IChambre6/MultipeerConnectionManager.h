@@ -22,4 +22,6 @@
 
 -(void) BrowserConnection: (Room *) myRoom;
 
+-(void) SendMessage: (NSData *)data withPeer: (MCPeerID *)peerID;
+
 @end
