@@ -59,4 +59,16 @@
     }
 }
 
+-(void) changeStatusUser : (MCPeerID *) peerID
+{
+  if ([ _UsersAccepted contains:peerID]){
+    [_UsersAccepted removeObject:peerID];
+    [_UsersRejected addObject:peerID];
+  }
+  else ([_UsersRejected contains:peerID]){
+    [_UsersRejected removeObject:peerID];
+    [_UsersAccepted addObject:peerID];
+  }
+}
+
 @end

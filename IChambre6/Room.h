@@ -16,7 +16,7 @@
 
 -(bool) containsPeer:(MCPeerID *)peerID;
 -(void) addUser: (MCPeerID *) peerID andStatus: (bool *) status;
-//-(bool) removeUser;
+-(void) changeStatusUser : (MCPeerID *) peerID;
 
 
 @end
