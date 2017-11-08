@@ -23,6 +23,7 @@
 
 
 - (IBAction)MsgSend:(id)sender;
+- (bool)MsgReceive;
 
 
 @end

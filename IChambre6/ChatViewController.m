@@ -43,4 +43,8 @@
     NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
     [[self mCManager] SendMessage:data withPeer:_peerID];
 }
+
+- (bool)MsgReceive {
+  
+}
 @end

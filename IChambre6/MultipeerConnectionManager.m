@@ -26,14 +26,14 @@ static NSString * const service = @"ichambre";
 -(MCNearbyServiceAdvertiser *) Initialization: (Room *) myRoom
 {
     myPeerID = [[MCPeerID alloc] initWithDisplayName: myRoom.UserIdRoom];
-    
+
     // Par défaut, advertiser est lancé
     [self setAdvertiser: [[MCNearbyServiceAdvertiser alloc] initWithPeer:myPeerID discoveryInfo:nil serviceType:service]];
-    
+
     [[self advertiser] startAdvertisingPeer];
-    
+
     advertiserIsStarted = YES;
-    
+
     // La gestion de reception des demandes est géré dans ListUsersTableViewController
     return [self advertiser]; }
 
@@ -49,7 +49,7 @@ static NSString * const service = @"ichambre";
         [[self advertiser] stopAdvertisingPeer];
         advertiserIsStarted = NO;
     }
-        
+
 }
 
 -(void) BrowserConnection: (Room *) myRoom
@@ -57,7 +57,7 @@ static NSString * const service = @"ichambre";
     _mySession = [[MCSession alloc] initWithPeer:myPeerID securityIdentity:nil encryptionPreference:MCEncryptionNone];
 
     _browser = [[MCNearbyServiceBrowser alloc] initWithPeer:myPeerID serviceType:service];
-    
+
     _browserViewController = [[MCBrowserViewController alloc] initWithBrowser:_browser session:_mySession];
 }
 
