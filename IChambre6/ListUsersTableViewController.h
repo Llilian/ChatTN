@@ -11,11 +11,12 @@
 #import "MultipeerConnectionManager.h"
 #import "Room.h"
 
-@interface ListUsersTableViewController : UITableViewController <MCNearbyServiceAdvertiserDelegate,MCSessionDelegate>
+@interface ListUsersTableViewController : UITableViewController
 
 - (IBAction)ResearchUsers:(id)sender;
 - (IBAction)Synchronize:(id)sender;
 
 @property Room *myRoom;
+@property MCNearbyServiceAdvertiser *advertiser;
 
 @end

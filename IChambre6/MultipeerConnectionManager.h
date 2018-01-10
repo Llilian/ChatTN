@@ -16,12 +16,12 @@
 @property MCBrowserViewController *browserViewController;
 @property MCNearbyServiceBrowser *browser;
 
--(MCNearbyServiceAdvertiser *) Initialization: (Room *) myRoom;
+-(void) Initialization: (Room *) myRoom;
 
 -(void) ChangeAdvertiserStatus;
 
 -(void) BrowserConnection: (Room *) myRoom;
 
--(void) SendMessage: (NSData *)data withPeer: (MCPeerID *)peerID;
+//-(void) SendMessage: (NSData *)data withPeer: (MCPeerID *)peerID;
 
 @end

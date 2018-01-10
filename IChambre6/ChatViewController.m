@@ -29,22 +29,35 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if (sender == [self BtnEnv])
-        [self setName:[[self TvMsgEnv] text]];
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ if (sender == [self BtnEnv])
+ [self setName:[[self TvMsgEnv] text]];
+ }
+ */
 
 - (IBAction)MsgSend:(id)sender {
     NSString *message = @"Bidle";
     NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
-    [[self mCManager] SendMessage:data withPeer:_peerID];
+    //[[self mCManager] SendMessage:data withPeer:_peerID];
 }
 
-- (bool)MsgReceive {
-  
-}
+/*- (bool)MsgReceive {
+ return true;
+ }*/
+
+#pragma mark - MCSessionDelegate
+/*
+ -(void)session:(MCSession *)session
+ didReceiveData:(NSData *)data
+ fromPeer:(MCPeerID *)peerID
+ {
+ NSString *message =
+ [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+ 
+ [[self LblMsgRecu] setText:message];
+ }*/
 @end
+

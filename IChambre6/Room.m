@@ -24,22 +24,22 @@
 -(bool) containsPeer:(MCPeerID *)peerID
 {
     /*if ([_UsersAccepted containsObject:(MCPeerID *) peerID]){
-        NSLog(@"containsPeer : true : ");
-        NSLog(@"peerID : %@",peerID);
-        for (int i =0; i < [_UsersAccepted count]; i++ ){
-            NSLog(@"User %d : %@", i,[_UsersAccepted objectAtIndex:i]);
-        }
-        return true;
-    }
-    else
-    {
-        NSLog(@"containsPeer : false : ");
-        NSLog(@"peerID : %@",peerID);
-        for (int i =0; i < [_UsersRejected count]; i++ ){
-            NSLog(@"User %d : %@", i,[_UsersRejected objectAtIndex:i]);
-        }
-        return false;
-    }*/
+     NSLog(@"containsPeer : true : ");
+     NSLog(@"peerID : %@",peerID);
+     for (int i =0; i < [_UsersAccepted count]; i++ ){
+     NSLog(@"User %d : %@", i,[_UsersAccepted objectAtIndex:i]);
+     }
+     return true;
+     }
+     else
+     {
+     NSLog(@"containsPeer : false : ");
+     NSLog(@"peerID : %@",peerID);
+     for (int i =0; i < [_UsersRejected count]; i++ ){
+     NSLog(@"User %d : %@", i,[_UsersRejected objectAtIndex:i]);
+     }
+     return false;
+     }*/
     NSLog(@"ContainsPeer :");
     for (int i =0; i < [_UsersAccepted count]; i++ ){
         NSLog(@"Accepte User %d : %@", i,[_UsersAccepted objectAtIndex:i]);
@@ -61,14 +61,14 @@
 
 -(void) changeStatusUser : (MCPeerID *) peerID
 {
-  if ([ _UsersAccepted contains:peerID]){
-    [_UsersAccepted removeObject:peerID];
-    [_UsersRejected addObject:peerID];
-  }
-  else ([_UsersRejected contains:peerID]){
-    [_UsersRejected removeObject:peerID];
-    [_UsersAccepted addObject:peerID];
-  }
+    if ([_UsersAccepted containsObject:peerID]){
+        [_UsersAccepted removeObject:peerID];
+        [_UsersRejected addObject:peerID];
+    }
+    else if([_UsersRejected containsObject:peerID]){
+        [_UsersRejected removeObject:peerID];
+        [_UsersAccepted addObject:peerID];
+    }
 }
 
 @end

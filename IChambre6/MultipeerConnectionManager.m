@@ -7,6 +7,7 @@
 //
 
 #import "MultipeerConnectionManager.h"
+#import "ListUsersTableViewController.h"
 
 MCPeerID *myPeerID;
 BOOL advertiserIsStarted = NO;
@@ -23,19 +24,23 @@ static NSString * const service = @"ichambre";
     return self;
 }
 
--(MCNearbyServiceAdvertiser *) Initialization: (Room *) myRoom
+-(void) Initialization: (Room *) myRoom
 {
     myPeerID = [[MCPeerID alloc] initWithDisplayName: myRoom.UserIdRoom];
-
+    
     // Par défaut, advertiser est lancé
     [self setAdvertiser: [[MCNearbyServiceAdvertiser alloc] initWithPeer:myPeerID discoveryInfo:nil serviceType:service]];
-
+    
     [[self advertiser] startAdvertisingPeer];
-
+    
     advertiserIsStarted = YES;
-
+    
+    ListUsersTableViewController *TableViewController = [[ListUsersTableViewController alloc] init];
+    
     // La gestion de reception des demandes est géré dans ListUsersTableViewController
-    return [self advertiser]; }
+    _advertiser.delegate = TableViewController;
+    
+}
 
 -(void) ChangeAdvertiserStatus
 {
@@ -49,24 +54,26 @@ static NSString * const service = @"ichambre";
         [[self advertiser] stopAdvertisingPeer];
         advertiserIsStarted = NO;
     }
-
+    
 }
 
 -(void) BrowserConnection: (Room *) myRoom
 {
     _mySession = [[MCSession alloc] initWithPeer:myPeerID securityIdentity:nil encryptionPreference:MCEncryptionNone];
-
+    
     _browser = [[MCNearbyServiceBrowser alloc] initWithPeer:myPeerID serviceType:service];
-
+    
     _browserViewController = [[MCBrowserViewController alloc] initWithBrowser:_browser session:_mySession];
 }
 
--(void) SendMessage: (NSData *)data withPeer: (MCPeerID *)peerID
-{
-    NSError *error = nil;
-    [[self mySession] sendData:data toPeers:peerID withMode:MCSessionSendDataReliable error:&error];
-//    if (![[self mySession] sendData:data toPeers:peerID withMode:MCSessionSendDataReliable error:&error])
-//        return error;
-}
+/*
+ -(void) SendMessage: (NSData *)data withPeer: (MCPeerID *)peerID
+ {
+ NSError *error = nil;
+ [[self mySession] sendData:data toPeers:peerID withMode:MCSessionSendDataReliable error:&error];
+ //    if (![[self mySession] sendData:data toPeers:peerID withMode:MCSessionSendDataReliable error:&error])
+ //        return error;
+ }*/
 
 @end
+
