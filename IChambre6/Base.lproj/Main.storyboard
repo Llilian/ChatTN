@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -44,6 +43,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Connexion"/>
                                 <connections>
+                                    <action selector="Connexion:" destination="BYZ-38-t0r" eventType="touchUpInside" id="E57-gr-PoM"/>
                                     <segue destination="Wv8-kX-Gqz" kind="show" id="XGF-Lx-kIx"/>
                                 </connections>
                             </button>
@@ -79,7 +79,7 @@
                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="DyB-I5-lhU"/>
                                 <barButtonItem systemItem="refresh" id="eBm-dw-vdh" userLabel="BtnSynchronisation">
                                     <connections>
-                                        <action selector="Synchronize:" destination="Wv8-kX-Gqz" id="2Ol-SV-LYX"/>
+                                        <action selector="Synchronize:" destination="Wv8-kX-Gqz" id="0tU-3X-9jJ"/>
                                     </connections>
                                 </barButtonItem>
                             </items>

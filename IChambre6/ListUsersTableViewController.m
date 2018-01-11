@@ -10,20 +10,28 @@
 
 @interface ListUsersTableViewController ()
 
-@property MultipeerConnectionManager *mCManager;
-
 @end
 
-MCNearbyServiceAdvertiser *advertiser;
+MCPeerID *myPeerID;
+BOOL advertiserIsStarted = NO;
+static NSString * const service = @"ichambre";
+
+//MCNearbyServiceAdvertiser *advertiser;
 
 @implementation ListUsersTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _mCManager = [[MultipeerConnectionManager alloc] init];
+    myPeerID = [[MCPeerID alloc] initWithDisplayName: _myRoom.UserIdRoom];
+    /*
+    [self setAdvertiser2: [[MCNearbyServiceAdvertiser alloc] initWithPeer:myPeerID discoveryInfo:nil serviceType:service]];
     
-    [_mCManager Initialization:_myRoom];
+    // Par défaut, advertiser est lancé
+    [[self advertiser2] startAdvertisingPeer];
+    
+    NSLog(@"before Invitation");
+    _advertiser2.delegate = self;*/
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,11 +40,16 @@ MCNearbyServiceAdvertiser *advertiser;
 }
 
 - (IBAction)ResearchUsers:(id)sender {
-    [_mCManager BrowserConnection:[self myRoom]];
     
-    [self presentViewController: [_mCManager browserViewController]
+    _mySession = [[MCSession alloc] initWithPeer:myPeerID securityIdentity:nil encryptionPreference:MCEncryptionNone];
+    
+    _browser = [[MCNearbyServiceBrowser alloc] initWithPeer:myPeerID serviceType:service];
+    
+    _browserViewController = [[MCBrowserViewController alloc] initWithBrowser:_browser session:_mySession];
+    
+    [self presentViewController: _browserViewController
                        animated:YES completion:^{
-                           [[_mCManager browser] startBrowsingForPeers];
+                           [_browser startBrowsingForPeers];
                        }];
     
 }
@@ -98,6 +111,30 @@ MCNearbyServiceAdvertiser *advertiser;
  }
  */
 
+-(void) ChangeAdvertiserStatus
+{
+    if (!advertiserIsStarted)
+    {
+        [[self advertiser2] startAdvertisingPeer];
+        advertiserIsStarted = YES;
+    }
+    else
+    {
+        [[self advertiser2] stopAdvertisingPeer];
+        advertiserIsStarted = NO;
+    }
+    
+}
+
+-(void) BrowserConnection
+{
+    
+    
+    _browser = [[MCNearbyServiceBrowser alloc] initWithPeer:myPeerID serviceType:service];
+    
+    _browserViewController = [[MCBrowserViewController alloc] initWithBrowser:_browser session:_mySession];
+}
+
 
 #pragma mark - Navigation
 
@@ -105,7 +142,6 @@ MCNearbyServiceAdvertiser *advertiser;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ChatViewController *controller = [segue destinationViewController];
     [controller setName: [[sender textLabel] text]];
-    [controller setMCManager:[self mCManager]];
     [controller setPeerID:[[_myRoom UsersAccepted] objectAtIndex:0]]; // Passage du peerID
 }
 
@@ -117,7 +153,7 @@ didReceiveInvitationFromPeer:(MCPeerID *)peerID
       withContext:(NSData *)context
 invitationHandler:(void (^)(BOOL accept, MCSession *session))invitationHandler
 {
-    
+    NSLog(@"Invitation");
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Connexion entrante"
                                                                    message: [[peerID displayName] stringByAppendingString:@" veut discuter avec vous !"]
                                                             preferredStyle:UIAlertControllerStyleAlert];
@@ -129,7 +165,7 @@ invitationHandler:(void (^)(BOOL accept, MCSession *session))invitationHandler
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Accepté" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
                          {
                              [_myRoom addUser:peerID andStatus:(bool *) true];
-                             invitationHandler(YES, [_mCManager mySession]);
+                             invitationHandler(YES, _mySession);
                          }];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Rejeté" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)

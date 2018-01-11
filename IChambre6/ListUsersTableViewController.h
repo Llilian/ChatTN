@@ -8,15 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "ChatViewController.h"
-#import "MultipeerConnectionManager.h"
+@import MultipeerConnectivity;
 #import "Room.h"
 
-@interface ListUsersTableViewController : UITableViewController
+@interface ListUsersTableViewController : UITableViewController <MCAdvertiserAssistantDelegate>
 
 - (IBAction)ResearchUsers:(id)sender;
 - (IBAction)Synchronize:(id)sender;
 
+-(void) ChangeAdvertiserStatus;
+-(void) BrowserConnection;
+
 @property Room *myRoom;
-@property MCNearbyServiceAdvertiser *advertiser;
+@property MCNearbyServiceAdvertiser *advertiser2;
+@property MCSession *mySession;
+@property MCBrowserViewController *browserViewController;
+@property MCNearbyServiceBrowser *browser;
 
 @end

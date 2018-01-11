@@ -11,6 +11,7 @@
 
 @interface HomeViewController : UIViewController <MCAdvertiserAssistantDelegate>
 
+- (IBAction)Connexion:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *UserId;
-
+@property MCNearbyServiceAdvertiser *advertiser;
 @end

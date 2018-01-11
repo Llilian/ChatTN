@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		C0980A101F73F73400F14CBE /* ListUsersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C0980A0F1F73F73400F14CBE /* ListUsersTableViewController.m */; };
 		C09F999F1F6FEEDC0031DD41 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C09F999E1F6FEEDC0031DD41 /* ChatViewController.m */; };
-		C0A17BC61F74F69100649FB1 /* MultipeerConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C0A17BC51F74F69100649FB1 /* MultipeerConnectionManager.m */; };
 		C0C926C91F69654A006C605C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C926C81F69654A006C605C /* main.m */; };
 		C0C926CC1F69654A006C605C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C0C926CB1F69654A006C605C /* AppDelegate.m */; };
 		C0C926D21F69654A006C605C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C926D01F69654A006C605C /* Main.storyboard */; };
@@ -26,8 +25,6 @@
 		C0980A0F1F73F73400F14CBE /* ListUsersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListUsersTableViewController.m; sourceTree = "<group>"; };
 		C09F999D1F6FEEDC0031DD41 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		C09F999E1F6FEEDC0031DD41 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
-		C0A17BC41F74F69100649FB1 /* MultipeerConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipeerConnectionManager.h; sourceTree = "<group>"; };
-		C0A17BC51F74F69100649FB1 /* MultipeerConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipeerConnectionManager.m; sourceTree = "<group>"; };
 		C0C926C41F69654A006C605C /* IChambre6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IChambre6.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0C926C81F69654A006C605C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C0C926CA1F69654A006C605C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -87,8 +84,6 @@
 				C0980A0F1F73F73400F14CBE /* ListUsersTableViewController.m */,
 				C0C926E51F696DB8006C605C /* Room.h */,
 				C0C926E61F696DB8006C605C /* Room.m */,
-				C0A17BC41F74F69100649FB1 /* MultipeerConnectionManager.h */,
-				C0A17BC51F74F69100649FB1 /* MultipeerConnectionManager.m */,
 				C0C926D31F69654A006C605C /* Assets.xcassets */,
 				C0C926D51F69654A006C605C /* LaunchScreen.storyboard */,
 				C0C926D81F69654A006C605C /* Info.plist */,
@@ -191,7 +186,6 @@
 				C09F999F1F6FEEDC0031DD41 /* ChatViewController.m in Sources */,
 				C0C926CC1F69654A006C605C /* AppDelegate.m in Sources */,
 				C0C926C91F69654A006C605C /* main.m in Sources */,
-				C0A17BC61F74F69100649FB1 /* MultipeerConnectionManager.m in Sources */,
 				C0980A101F73F73400F14CBE /* ListUsersTableViewController.m in Sources */,
 				C0C926E21F6969AD006C605C /* HomeViewController.m in Sources */,
 			);

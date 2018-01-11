@@ -9,14 +9,18 @@
 #import "HomeViewController.h"
 #import "ListUsersTableViewController.h"
 #import "Room.h"
-#import "MultipeerConnectionManager.h"
 
 @interface HomeViewController ()
 
 
 @property Room *myRoom;
+@property MCSession *mySession2;
 
 @end
+
+MCPeerID *myPeerID2;
+BOOL advertiserIsStarted2 = NO;
+static NSString * const service2 = @"ichambre";
 
 @implementation HomeViewController
 
@@ -24,11 +28,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _myRoom = [[Room alloc] init];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(IBAction)Connexion:(id)sender{
+    
+    _myRoom.UserIdRoom = [[self UserId] text];
+  
+    myPeerID2 = [[MCPeerID alloc] initWithDisplayName: _myRoom.UserIdRoom];
+    
+    [self setAdvertiser: [[MCNearbyServiceAdvertiser alloc] initWithPeer:myPeerID2 discoveryInfo:nil serviceType:service2]];
+    
+    // Par défaut, advertiser est lancé
+    
+    
+    _mySession2 = [[MCSession alloc] initWithPeer:myPeerID2 securityIdentity:nil encryptionPreference:MCEncryptionNone];
+    
+    NSLog(@"before Invitation");
+    
+    _advertiser.delegate = self;
+    
+    [[self advertiser] startAdvertisingPeer];
 }
 
 
@@ -42,7 +68,7 @@
     controller.myRoom = _myRoom;
 }
 
-/*
+
 #pragma mark - MCNearbyServiceAdvertiserDelegate
 
 -(void)advertiser:(MCNearbyServiceAdvertiser *)advertiser
@@ -64,7 +90,7 @@ invitationHandler:(void (^)(BOOL accept, MCSession *session))invitationHandler
                              [_myRoom containsPeer:(MCPeerID *) @"Nickname"];
                              
                              
-                             invitationHandler(YES, _session);
+                             invitationHandler(YES, _mySession2);
                          }];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Rejeté" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
@@ -88,6 +114,4 @@ invitationHandler:(void (^)(BOOL accept, MCSession *session))invitationHandler
     
     
 }
-*/
-
 @end
