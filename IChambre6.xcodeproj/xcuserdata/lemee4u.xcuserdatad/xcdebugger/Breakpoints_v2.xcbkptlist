@@ -88,12 +88,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IChambre6/HomeViewController.h"
-            timestampString = "537359459.789717"
+            timestampString = "527416748.377983"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "12"
             endingLineNumber = "12"
-            landmarkName = "HomeViewController"
+            landmarkName = "@interface HomeViewController"
             landmarkType = "2">
             <Locations>
                <Location
@@ -132,31 +132,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IChambre6/MultipeerConnectionManager.m"
-            timestampString = "537280156.294636"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "14"
-            endingLineNumber = "14"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IChambre6/ListUsersTableViewController.m"
-            timestampString = "537365686.254758"
+            timestampString = "537371274.00737"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "ListUsersTableViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -168,29 +152,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IChambre6/ChatViewController.h"
-            timestampString = "537365686.255288"
+            timestampString = "528302842.240516"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
             landmarkName = "peerID"
             landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "IChambre6/ListUsersTableViewController.m"
-            timestampString = "537365686.255507"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
