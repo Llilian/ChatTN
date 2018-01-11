@@ -8,7 +8,6 @@
 
 #import "MultipeerConnectionManager.h"
 
-MCPeerID *myPeerID;
 BOOL advertiserIsStarted = NO;
 static NSString * const service = @"ichambre";
 
@@ -18,23 +17,22 @@ static NSString * const service = @"ichambre";
 {
     self = [super init];
     if (self) {
-        myPeerID = nil;
     }
     return self;
 }
 
 -(void) Initialization: (Room *) myRoom
 {
-    myPeerID = [[MCPeerID alloc] initWithDisplayName: myRoom.UserIdRoom];
+    
     
     // Par défaut, advertiser est lancé
-    _advertiser = [[MCNearbyServiceAdvertiser alloc] initWithPeer:myPeerID discoveryInfo:nil serviceType:service];
+    _advertiser = [[MCNearbyServiceAdvertiser alloc] initWithPeer:myRoom.myPeerID discoveryInfo:nil serviceType:service];
     
     advertiserIsStarted = YES;
     
-    _mySession = [[MCSession alloc] initWithPeer:myPeerID securityIdentity:nil encryptionPreference:MCEncryptionNone];
+    _mySession = [[MCSession alloc] initWithPeer:myRoom.myPeerID];
     
-    _browser = [[MCNearbyServiceBrowser alloc] initWithPeer:myPeerID serviceType:service];
+    _browser = [[MCNearbyServiceBrowser alloc] initWithPeer:myRoom.myPeerID serviceType:service];
     
     _browserViewController = [[MCBrowserViewController alloc] initWithBrowser:_browser session:_mySession];
     // La gestion de reception des demandes est géré dans ListUsersTableViewController
@@ -58,7 +56,7 @@ static NSString * const service = @"ichambre";
 -(void) SendMessage: (NSData *)data withPeer: (MCPeerID *)peerID
 {
     NSError *error = nil;
-    [_mySession sendData:data toPeers:peerID withMode:MCSessionSendDataReliable error:&error];
+    [_mySession sendData:data toPeers:@[peerID] withMode:MCSessionSendDataReliable error:&error];
     //    if (![[self mySession] sendData:data toPeers:peerID withMode:MCSessionSendDataReliable error:&error])
     //        return error;
 }

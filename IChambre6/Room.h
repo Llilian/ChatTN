@@ -10,11 +10,14 @@
 @import MultipeerConnectivity;
 
 @interface Room : NSObject
-@property NSString *UserIdRoom;
+@property MCPeerID *myPeerID;
+@property NSMutableArray *conversation;
 @property NSMutableArray *UsersAccepted;
 @property NSMutableArray *UsersRejected;
 
--(bool) containsPeer:(MCPeerID *)peerID;
+-(MCPeerID *) returnPeerIDPeopleToTalk:(NSString *)namePeerID;
+-(bool) acceptedContainsPeer:(MCPeerID *)peerID;
+-(bool) rejectedContainsPeer:(MCPeerID *)peerID;
 -(void) addUser: (MCPeerID *) peerID andStatus: (bool *) status;
 -(void) changeStatusUser : (MCPeerID *) peerID;
 

@@ -112,9 +112,8 @@ MCNearbyServiceAdvertiser *advertiser;
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ChatViewController *controller = [segue destinationViewController];
-    [controller setName: [[sender textLabel] text]];
-    [controller setMCManager:[self mCManager]];
-    [controller setPeerID:[[_myRoom UsersAccepted] objectAtIndex:0]]; // Passage du peerID
+    [controller setMCManager:_mCManager];
+    [controller setPeerID:[_myRoom returnPeerIDPeopleToTalk:[[sender textLabel] text]]]; // Passage du peerID
 }
 
 
@@ -125,7 +124,6 @@ didReceiveInvitationFromPeer:(MCPeerID *)peerID
        withContext:(NSData *)context
  invitationHandler:(void(^)(BOOL accept, MCSession *session))invitationHandler
 {
-    NSLog(@"advertiser");
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Connexion entrante"
                                                                    message: [[peerID displayName] stringByAppendingString:@" veut discuter avec vous !"]
                                                             preferredStyle:UIAlertControllerStyleAlert];
@@ -134,6 +132,7 @@ didReceiveInvitationFromPeer:(MCPeerID *)peerID
                          {
                              [_myRoom addUser:peerID andStatus:(bool *) true];
                              invitationHandler(YES, [_mCManager mySession]);
+                             [[self tableView] reloadData];
                          }];
 
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Rejeté" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
@@ -156,6 +155,7 @@ didReceiveInvitationFromPeer:(MCPeerID *)peerID
 - (void)browserViewControllerDidFinish:(MCBrowserViewController *)browserViewController
 {
     [self dismissViewControllerAnimated:YES completion:^{nil;}];
+    [[self tableView] reloadData];
 }
 
 
@@ -170,7 +170,7 @@ didReceiveInvitationFromPeer:(MCPeerID *)peerID
     didReceiveData:(NSData *)data
     fromPeer:(MCPeerID *)peerID
 {
-    /*NSString *message = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *message = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Connexion entrante"
                                                                    message: [message stringByAppendingString:@" : message"]
@@ -185,7 +185,7 @@ didReceiveInvitationFromPeer:(MCPeerID *)peerID
     
     [self dismissViewControllerAnimated:YES completion:^{nil;}];
     
-    [self presentViewController:alert animated:YES completion:nil];*/
+    [self presentViewController:alert animated:YES completion:nil];
     
     // Sauvegarde dans fichier Json conversation ( Pour avoir plusieurs conversation même temps)
     // Si chat avec 1 : moi écrit : affiche dans fenêtre et sauvegarde dans fichier Json
@@ -197,6 +197,26 @@ didReceiveInvitationFromPeer:(MCPeerID *)peerID
     // Quand je quitte l'application : 2 choix :
     //  * Supprime conversation existante
     //  * Garde conversation existante + affiche aux prochaines connexion (Mais normalement impossible de lié à un PeerID).
+}
+
+- (void)session:(nonnull MCSession *)session didFinishReceivingResourceWithName:(nonnull NSString *)resourceName fromPeer:(nonnull MCPeerID *)peerID atURL:(nullable NSURL *)localURL withError:(nullable NSError *)error {
+    
+}
+
+
+- (void)session:(nonnull MCSession *)session didReceiveStream:(nonnull NSInputStream *)stream withName:(nonnull NSString *)streamName fromPeer:(nonnull MCPeerID *)peerID {
+    
+}
+
+
+- (void)session:(nonnull MCSession *)session didStartReceivingResourceWithName:(nonnull NSString *)resourceName fromPeer:(nonnull MCPeerID *)peerID withProgress:(nonnull NSProgress *)progress {
+    
+}
+
+
+- (void)session:(nonnull MCSession *)session peer:(nonnull MCPeerID *)peerID didChangeState:(MCSessionState)state {
+    if(state == 2 && ![_myRoom acceptedContainsPeer:peerID])
+        [_myRoom addUser:peerID andStatus:(bool *) true];
 }
 
 

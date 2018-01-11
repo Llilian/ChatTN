@@ -36,7 +36,7 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    _myRoom.UserIdRoom = [[self UserId] text];
+    _myRoom.myPeerID = [[MCPeerID alloc] initWithDisplayName: [[self UserId] text]];
     
     ListUsersTableViewController *controller = [segue destinationViewController];
     controller.myRoom = _myRoom;

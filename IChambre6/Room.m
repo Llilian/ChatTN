@@ -21,33 +21,32 @@
     return self;
 }
 
--(bool) containsPeer:(MCPeerID *)peerID
+-(bool) acceptedContainsPeer:(MCPeerID *)peerID
 {
-    /*if ([_UsersAccepted containsObject:(MCPeerID *) peerID]){
-        NSLog(@"containsPeer : true : ");
-        NSLog(@"peerID : %@",peerID);
-        for (int i =0; i < [_UsersAccepted count]; i++ ){
-            NSLog(@"User %d : %@", i,[_UsersAccepted objectAtIndex:i]);
-        }
-        return true;
-    }
-    else
-    {
-        NSLog(@"containsPeer : false : ");
-        NSLog(@"peerID : %@",peerID);
-        for (int i =0; i < [_UsersRejected count]; i++ ){
-            NSLog(@"User %d : %@", i,[_UsersRejected objectAtIndex:i]);
-        }
-        return false;
-    }*/
-    NSLog(@"ContainsPeer :");
     for (int i =0; i < [_UsersAccepted count]; i++ ){
-        NSLog(@"Accepte User %d : %@", i,[_UsersAccepted objectAtIndex:i]);
+        if ([ _UsersAccepted containsObject:peerID])
+            return true;
     }
+    return false;
+}
+
+-(bool) rejectedContainsPeer:(MCPeerID *)peerID
+{
     for (int i =0; i < [_UsersRejected count]; i++ ){
-        NSLog(@"refuse User %d : %@", i,[_UsersRejected objectAtIndex:i]);
+        if ([ _UsersRejected containsObject:peerID])
+            return true;
     }
-    return true;
+    return false;
+}
+
+
+-(MCPeerID *) returnPeerIDPeopleToTalk:(NSString *)namePeerID
+{
+    for (int i =0; i < [_UsersAccepted count]; i++ ){
+        if ([[[ _UsersAccepted objectAtIndex:i] displayName] isEqualToString:namePeerID])
+            return [ _UsersAccepted objectAtIndex:i];
+    }
+    return nil;
 }
 
 -(void) addUser:(MCPeerID *)peerID andStatus: (bool *) status
@@ -60,15 +59,15 @@
 }
 
 -(void) changeStatusUser : (MCPeerID *) peerID
-{/*
-  if ([ _UsersAccepted contains:peerID]){
+{
+  if ([ _UsersAccepted containsObject:peerID]) {
     [_UsersAccepted removeObject:peerID];
     [_UsersRejected addObject:peerID];
   }
-  else ([_UsersRejected contains:peerID]){
+  else if ([ _UsersRejected containsObject:peerID]) {
     [_UsersRejected removeObject:peerID];
     [_UsersAccepted addObject:peerID];
-  }*/
+  }
 }
 
 @end
