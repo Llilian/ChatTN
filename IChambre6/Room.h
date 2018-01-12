@@ -11,7 +11,6 @@
 
 @interface Room : NSObject
 @property MCPeerID *myPeerID;
-@property NSMutableArray *conversation;
 @property NSMutableDictionary *conversationUsers;
 
 @property NSMutableArray *usersAccepted;

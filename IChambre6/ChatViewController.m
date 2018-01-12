@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [[self LblUser] setText:[@"Discussion avec " stringByAppendingString:_peerID.displayName]];
+    [[self LblUser] setText:[@"Discussion avec " stringByAppendingString:_peerIDFriend.displayName]];
 
     // Création des bord pour le label et la textView
     UIColor *borderColor = [[UIColor alloc] initWithRed:0.85 green:0.85 blue:0.85 alpha:1.0];
@@ -33,8 +33,11 @@
     _LblMsgRecu.layer.borderColor = borderColor.CGColor;
     _LblMsgRecu.layer.cornerRadius = 5.0;
     [_LblMsgRecu setNumberOfLines:0];
-    _LblMsgRecu.frame = CGRectMake(68,204,561,554);
+    //_LblMsgRecu.frame = CGRectMake(68,204,561,554);
     [_LblMsgRecu setTextAlignment:0];
+    
+    if ([[_myRoom.conversationUsers allKeys] containsObject:_peerIDFriend])
+        _LblMsgRecu.text = [_myRoom.conversationUsers objectForKey:_peerIDFriend];
 
     _mCManager.mySession.delegate = self;
 
@@ -63,7 +66,6 @@
 {
     NSString *message = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
-    //_LblMsgRecu.text = [[_LblMsgRecu.text stringByAppendingString:@"\n"] stringByAppendingString:message];
     dispatch_async(dispatch_get_main_queue(), ^{
         NSArray *keys = [_myRoom.conversationUsers allKeys];
         if ([keys containsObject:peerID])
@@ -71,11 +73,8 @@
         else
               _myRoom.conversationUsers[peerID] = message;
         
-        _LblMsgRecu.text = [[_LblMsgRecu.text stringByAppendingString:@"\n"] stringByAppendingString:message];
+        _LblMsgRecu.text = [_myRoom.conversationUsers objectForKey:peerID];
     });
-
-
-    //[[self LblMsgRecu] reloadInputViews];
 
     // Sauvegarde dans fichier Json conversation ( Pour avoir plusieurs conversation même temps)
     // Si chat avec 1 : moi écrit : affiche dans fenêtre et sauvegarde dans fichier Json
@@ -114,7 +113,14 @@
     if (![message isEqualToString:@""])
     {
         NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
-        [_mCManager SendMessage:data withPeer:_peerID];
+        [_mCManager SendMessage:data withPeer:_peerIDFriend];
+        
+        _myRoom.conversationUsers[_peerIDFriend] = [[_myRoom.conversationUsers[_peerIDFriend] stringByAppendingString:@"\n\t\t\t\t\t\t\t\t\t\t\t\t\t"] stringByAppendingString:message];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _LblMsgRecu.text = [_myRoom.conversationUsers objectForKey:_peerIDFriend];
+        });
+        
+        _TvMsgEnv.text = @"";
     }
 }
 

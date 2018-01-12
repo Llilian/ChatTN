@@ -113,7 +113,8 @@ MCNearbyServiceAdvertiser *advertiser;
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     ChatViewController *controller = [segue destinationViewController];
     [controller setMCManager:_mCManager];
-    [controller setPeerID:[_myRoom returnPeerIDPeopleToTalk:[[sender textLabel] text]]]; // Passage du peerID
+    [controller setMyRoom:_myRoom];
+    [controller setPeerIDFriend:[_myRoom returnPeerIDPeopleToTalk:[[sender textLabel] text]]]; // Passage du peerID
 }
 
 
@@ -186,17 +187,6 @@ didReceiveInvitationFromPeer:(MCPeerID *)peerID
     [self dismissViewControllerAnimated:YES completion:^{nil;}];
     
     [self presentViewController:alert animated:YES completion:nil];
-    
-    // Sauvegarde dans fichier Json conversation ( Pour avoir plusieurs conversation même temps)
-    // Si chat avec 1 : moi écrit : affiche dans fenêtre et sauvegarde dans fichier Json
-    //  1 écrit : affiche et write json file
-    // Je quitte chat avec 1 et chat avec 2 :
-    //  Si 1 écrit, n'affiche pas (pas dans son chat) mais enregistre (Me notifie ?).
-    // Quand je reviens chat avec lui : charge conversation du Json file
-
-    // Quand je quitte l'application : 2 choix :
-    //  * Supprime conversation existante
-    //  * Garde conversation existante + affiche aux prochaines connexion (Mais normalement impossible de lié à un PeerID).
 }
 
 - (void)session:(nonnull MCSession *)session didFinishReceivingResourceWithName:(nonnull NSString *)resourceName fromPeer:(nonnull MCPeerID *)peerID atURL:(nullable NSURL *)localURL withError:(nullable NSError *)error {

@@ -20,7 +20,7 @@
 
 @property MultipeerConnectionManager *mCManager;
 @property Room *myRoom;
-@property MCPeerID *peerID;
+@property MCPeerID *peerIDFriend;
 
 
 - (IBAction)MsgSend:(id)sender;
