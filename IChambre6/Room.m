@@ -15,8 +15,8 @@
 {
     self = [super init];
     if (self) {
-        _UsersAccepted = [NSMutableArray array];
-        _UsersRejected = [NSMutableArray array];
+        _usersAccepted = [NSMutableArray array];
+        _usersRejected = [NSMutableArray array];
         _conversationUsers = [[NSMutableDictionary alloc] init];
     }
     return self;
@@ -65,7 +65,7 @@
     [_usersAccepted removeObject:peerID];
     [_usersRejected addObject:peerID];
   }
-  else if ([ _UsersRejected containsObject:peerID]) {
+  else if ([ _usersRejected containsObject:peerID]) {
     [_usersRejected removeObject:peerID];
     [_usersAccepted addObject:peerID];
   }
