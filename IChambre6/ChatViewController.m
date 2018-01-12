@@ -65,7 +65,7 @@
 
     //_LblMsgRecu.text = [[_LblMsgRecu.text stringByAppendingString:@"\n"] stringByAppendingString:message];
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSArray keys = [_myRoom.conversationUsers allKeys];
+        NSArray *keys = [_myRoom.conversationUsers allKeys];
         if ([keys containsObject:peerID])
             _myRoom.conversationUsers[peerID] = [[_myRoom.conversationUsers[peerID] stringByAppendingString:@"\n"] stringByAppendingString:message];
         else

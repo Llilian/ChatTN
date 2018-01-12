@@ -61,13 +61,13 @@ MCNearbyServiceAdvertiser *advertiser;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_myRoom.UsersAccepted count];
+    return [_myRoom.usersAccepted count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"item" forIndexPath:indexPath];
 
-    [[cell textLabel] setText:[[[[self myRoom] UsersAccepted] objectAtIndex:indexPath.row] displayName]];
+    [[cell textLabel] setText:[[[[self myRoom] usersAccepted] objectAtIndex:indexPath.row] displayName]];
 
     return cell;
 }
