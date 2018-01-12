@@ -12,8 +12,10 @@
 @interface Room : NSObject
 @property MCPeerID *myPeerID;
 @property NSMutableArray *conversation;
-@property NSMutableArray *UsersAccepted;
-@property NSMutableArray *UsersRejected;
+@property NSMutableDictionary *conversationUsers;
+
+@property NSMutableArray *usersAccepted;
+@property NSMutableArray *usersRejected;
 
 -(MCPeerID *) returnPeerIDPeopleToTalk:(NSString *)namePeerID;
 -(bool) acceptedContainsPeer:(MCPeerID *)peerID;

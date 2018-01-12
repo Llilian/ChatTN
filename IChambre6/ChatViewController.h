@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MultipeerConnectionManager.h"
+#import "Room.h"
 
 @interface ChatViewController : UIViewController <MCSessionDelegate>
 
@@ -18,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *BtnEnv;
 
 @property MultipeerConnectionManager *mCManager;
+@property Room *myRoom;
 @property MCPeerID *peerID;
 
 
