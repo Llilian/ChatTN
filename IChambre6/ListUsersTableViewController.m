@@ -172,21 +172,27 @@ didReceiveInvitationFromPeer:(MCPeerID *)peerID
     fromPeer:(MCPeerID *)peerID
 {
     NSString *message = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSArray *keys = [_myRoom.conversationUsers allKeys];
+    if ([keys containsObject:peerID])
+        _myRoom.conversationUsers[peerID] = [[_myRoom.conversationUsers[peerID] stringByAppendingString:@"\n"] stringByAppendingString:message];
+    else
+        _myRoom.conversationUsers[peerID] = message;
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Connexion entrante"
-                                                                   message: [message stringByAppendingString:@" : message"]
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[@"Nouveau message de " stringByAppendingString:peerID.displayName]
+                                                                   message: message
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *ok = [UIAlertAction actionWithTitle:peerID.displayName style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Retour" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
                          {
                              nil;
                          }];
-
+    
     [alert addAction:ok];
     
     [self dismissViewControllerAnimated:YES completion:^{nil;}];
     
     [self presentViewController:alert animated:YES completion:nil];
+    
 }
 
 - (void)session:(nonnull MCSession *)session didFinishReceivingResourceWithName:(nonnull NSString *)resourceName fromPeer:(nonnull MCPeerID *)peerID atURL:(nullable NSURL *)localURL withError:(nullable NSError *)error {

@@ -150,13 +150,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gib-4a-aWX" userLabel="LblMsgRecu">
-                                <rect key="frame" x="68" y="204" width="561" height="554"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vxj-0X-J9q" userLabel="TvMsgEnv">
                                 <rect key="frame" x="68" y="789" width="561" height="53"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -164,14 +157,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r7p-yP-CDt" userLabel="TvMsgRecu">
+                                <rect key="frame" x="68" y="204" width="561" height="554"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="BtnEnv" destination="lG3-mX-Eqb" id="hWB-Gg-VGL"/>
-                        <outlet property="LblMsgRecu" destination="Gib-4a-aWX" id="hFf-4q-CXd"/>
                         <outlet property="LblUser" destination="JBL-QO-ZZj" id="f6R-wo-K93"/>
                         <outlet property="TvMsgEnv" destination="vxj-0X-J9q" id="b3Y-sL-we8"/>
+                        <outlet property="TvMsgRecu" destination="r7p-yP-CDt" id="crG-Hw-9J3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dbQ-pe-fm1" userLabel="First Responder" sceneMemberID="firstResponder"/>

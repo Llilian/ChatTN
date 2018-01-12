@@ -14,7 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *LblUser;
 @property (weak, nonatomic) IBOutlet UITextView *TvMsgEnv;
-@property (weak, nonatomic) IBOutlet UILabel *LblMsgRecu;
+@property (weak, nonatomic) IBOutlet UITextView *TvMsgRecu;
 
 @property (weak, nonatomic) IBOutlet UIButton *BtnEnv;
 

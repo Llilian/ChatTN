@@ -13,31 +13,24 @@
 @end
 
 @implementation ChatViewController
-// - Liste dynamique des utilisateurs acepté
-// - Mise à jour réguliere
-//Bar avec bouton ajouter (fenetre browser) et ..
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     [[self LblUser] setText:[@"Discussion avec " stringByAppendingString:_peerIDFriend.displayName]];
-
+    
     // Création des bord pour le label et la textView
     UIColor *borderColor = [[UIColor alloc] initWithRed:0.85 green:0.85 blue:0.85 alpha:1.0];
     _TvMsgEnv.layer.borderWidth = 0.8;
     _TvMsgEnv.layer.borderColor = borderColor.CGColor;
     _TvMsgEnv.layer.cornerRadius = 5.0;
 
-    _LblMsgRecu.layer.borderWidth = 0.5;
-    _LblMsgRecu.layer.borderColor = borderColor.CGColor;
-    _LblMsgRecu.layer.cornerRadius = 5.0;
-    [_LblMsgRecu setNumberOfLines:0];
-    //_LblMsgRecu.frame = CGRectMake(68,204,561,554);
-    [_LblMsgRecu setTextAlignment:0];
+    _TvMsgRecu.layer.borderWidth = 0.5;
+    _TvMsgRecu.layer.borderColor = borderColor.CGColor;
+    _TvMsgRecu.layer.cornerRadius = 5.0;    
     
     if ([[_myRoom.conversationUsers allKeys] containsObject:_peerIDFriend])
-        _LblMsgRecu.text = [_myRoom.conversationUsers objectForKey:_peerIDFriend];
+        _TvMsgRecu.text = [_myRoom.conversationUsers objectForKey:_peerIDFriend];
 
     _mCManager.mySession.delegate = self;
 
@@ -73,19 +66,8 @@
         else
               _myRoom.conversationUsers[peerID] = message;
         
-        _LblMsgRecu.text = [_myRoom.conversationUsers objectForKey:peerID];
+        _TvMsgRecu.text = [_myRoom.conversationUsers objectForKey:peerID];
     });
-
-    // Sauvegarde dans fichier Json conversation ( Pour avoir plusieurs conversation même temps)
-    // Si chat avec 1 : moi écrit : affiche dans fenêtre et sauvegarde dans fichier Json
-    //  1 écrit : affiche et write json file
-    // Je quitte chat avec 1 et chat avec 2 :
-    //  Si 1 écrit, n'affiche pas (pas dans son chat) mais enregistre (Me notifie ?).
-    // Quand je reviens chat avec lui : charge conversation du Json file
-
-    // Quand je quitte l'application : 2 choix :
-    //  * Supprime conversation existante
-    //  * Garde conversation existante + affiche aux prochaines connexion (Mais normalement impossible de lié à un PeerID).
 }
 
 - (void)session:(nonnull MCSession *)session didFinishReceivingResourceWithName:(nonnull NSString *)resourceName fromPeer:(nonnull MCPeerID *)peerID atURL:(nullable NSURL *)localURL withError:(nullable NSError *)error {
@@ -115,9 +97,13 @@
         NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
         [_mCManager SendMessage:data withPeer:_peerIDFriend];
         
-        _myRoom.conversationUsers[_peerIDFriend] = [[_myRoom.conversationUsers[_peerIDFriend] stringByAppendingString:@"\n\t\t\t\t\t\t\t\t\t\t\t\t\t"] stringByAppendingString:message];
+        if ([[_myRoom.conversationUsers allKeys] containsObject:_peerIDFriend])
+            _myRoom.conversationUsers[_peerIDFriend] = [[_myRoom.conversationUsers[_peerIDFriend] stringByAppendingString:@"\n\t\t\t\t\t\t\t\t\t"] stringByAppendingString:message];
+        else
+            _myRoom.conversationUsers[_peerIDFriend] = [@"\t\t\t\t\t\t\t\t\t" stringByAppendingString:message];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-            _LblMsgRecu.text = [_myRoom.conversationUsers objectForKey:_peerIDFriend];
+            _TvMsgRecu.text = [_myRoom.conversationUsers objectForKey:_peerIDFriend];
         });
         
         _TvMsgEnv.text = @"";

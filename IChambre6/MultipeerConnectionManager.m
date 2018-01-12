@@ -57,8 +57,6 @@ static NSString * const service = @"ichambre";
 {
     NSError *error = nil;
     [_mySession sendData:data toPeers:@[peerID] withMode:MCSessionSendDataReliable error:&error];
-    //    if (![[self mySession] sendData:data toPeers:peerID withMode:MCSessionSendDataReliable error:&error])
-    //        return error;
 }
 
 @end
